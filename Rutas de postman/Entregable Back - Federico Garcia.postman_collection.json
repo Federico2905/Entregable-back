@@ -1,0 +1,135 @@
+{
+	"info": {
+		"_postman_id": "3062031b-4967-44da-9aa6-aab79f3e3269",
+		"name": "Entregable Back - Federico Garcia",
+		"schema": "https://schema.getpostman.com/json/collection/v2.1.0/collection.json",
+		"_exporter_id": "30031438"
+	},
+	"item": [
+		{
+			"name": "Get all searches",
+			"request": {
+				"method": "GET",
+				"header": [],
+				"url": {
+					"raw": "http://localhost:5000/api/v1/searches",
+					"protocol": "http",
+					"host": [
+						"localhost"
+					],
+					"port": "5000",
+					"path": [
+						"api",
+						"v1",
+						"searches"
+					]
+				}
+			},
+			"response": []
+		},
+		{
+			"name": "Create a new search",
+			"request": {
+				"method": "POST",
+				"header": [],
+				"body": {
+					"mode": "raw",
+					"raw": "{\r\n    \"searchTerm\": \"Federico2905\",\r\n    \"searchResult\": [],\r\n    \"searchDate\": \"13/11/2023\"\r\n}",
+					"options": {
+						"raw": {
+							"language": "json"
+						}
+					}
+				},
+				"url": {
+					"raw": "http://localhost:5000/api/v1/searches",
+					"protocol": "http",
+					"host": [
+						"localhost"
+					],
+					"port": "5000",
+					"path": [
+						"api",
+						"v1",
+						"searches"
+					]
+				}
+			},
+			"response": []
+		},
+		{
+			"name": "Update a searchTerm",
+			"request": {
+				"method": "PUT",
+				"header": [],
+				"body": {
+					"mode": "raw",
+					"raw": "{\r\n    \"searchTerm\": \"Federico2905\",\r\n    \"searchResult\": [\r\n        \"aaaa\",\r\n        \"aaaaaaa\"\r\n    ],\r\n    \"searchDate\": \"13/11/2023\"\r\n}",
+					"options": {
+						"raw": {
+							"language": "json"
+						}
+					}
+				},
+				"url": {
+					"raw": "http://localhost:5000/api/v1/searches/Federico2905",
+					"protocol": "http",
+					"host": [
+						"localhost"
+					],
+					"port": "5000",
+					"path": [
+						"api",
+						"v1",
+						"searches",
+						"Federico2905"
+					]
+				}
+			},
+			"response": []
+		},
+		{
+			"name": "Delete all searches",
+			"request": {
+				"method": "DELETE",
+				"header": [],
+				"url": {
+					"raw": "http://localhost:5000/api/v1/allsearches",
+					"protocol": "http",
+					"host": [
+						"localhost"
+					],
+					"port": "5000",
+					"path": [
+						"api",
+						"v1",
+						"allsearches"
+					]
+				}
+			},
+			"response": []
+		},
+		{
+			"name": "Delete a specific searchTerm",
+			"request": {
+				"method": "DELETE",
+				"header": [],
+				"url": {
+					"raw": "http://localhost:5000/api/v1/searches/Federico2905",
+					"protocol": "http",
+					"host": [
+						"localhost"
+					],
+					"port": "5000",
+					"path": [
+						"api",
+						"v1",
+						"searches",
+						"Federico2905"
+					]
+				}
+			},
+			"response": []
+		}
+	]
+}
