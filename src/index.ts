@@ -1,9 +1,14 @@
 import app from "./server";
 import mongoose from "mongoose";
-const port = 5000;
+import dotenv from "dotenv";
+
+dotenv.config({ path: ".env" });
+
+const port = process.env.PORT || 5000;
+const connectionString = process.env.CONNECTION_STRING;
 
 mongoose
-  .connect("mongodb+srv://fedegarcia2905:29052006@cluster0.zw4bzu9.mongodb.net/")
+  .connect(connectionString)
   .catch((error) => {
     console.log("The following error has occured:", error);
   })
