@@ -9,6 +9,7 @@ import {
 } from "../services/search.service";
 import { responseHandler } from "../handlers/response.handler";
 import { errorHandler } from "../handlers/error.handler";
+import { getCurrentDate } from "../utils";
 
 export const createSearch = async (req: Request, res: Response, next: NextFunction) => {
   const body = req.body;
@@ -41,7 +42,7 @@ export const updateSearch = async (req: Request, res: Response, next: NextFuncti
     next(
       new responseHandler(
         200,
-        { previusData: parsedUpdatedSearch, newData: body },
+        { previusData: parsedUpdatedSearch, newData: { searchTerm: body.searchTerm, searchResult: body.searchResult, searchDate: getCurrentDate() } },
         `The content linked to the following searchterm has been updated: ${searchTerm}`
       )
     );

@@ -1,8 +1,10 @@
-import { ISearch } from "../models/search.interface";
+import { ISearch, ISearchWD } from "../models/search.interface";
 import Search from "../schemas/search.schema";
+import { getCurrentDate } from "../utils/";
 
-export const createSearchService = async (search: ISearch) => {
-  const newsearch = new Search(search);
+export const createSearchService = async (search: ISearchWD) => {
+  const { searchTerm, searchResult } = search;
+  const newsearch = new Search({ searchTerm, searchResult, searchDate: getCurrentDate() });
   await newsearch.save();
   return newsearch;
 };
@@ -12,8 +14,9 @@ export const getSearchesService = async () => {
   return searches;
 };
 
-export const updateSearchService = async (searchTerm: string, updatedData: ISearch) => {
-  const updatedSearch = await Search.findOneAndUpdate({ searchTerm }, updatedData);
+export const updateSearchService = async (searchTerm: string, updatedData: ISearchWD) => {
+  const { searchResult } = updatedData;
+  const updatedSearch = await Search.findOneAndUpdate({ searchTerm }, { searchTerm, searchResult, searchDate: getCurrentDate() });
   return updatedSearch;
 };
 
