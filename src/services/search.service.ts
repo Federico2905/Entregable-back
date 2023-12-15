@@ -3,8 +3,8 @@ import Search from "../schemas/search.schema";
 import { getCurrentDate } from "../utils/";
 
 export const createSearchService = async (search: ISearchWD) => {
-  const { searchTerm, searchResult } = search;
-  const newsearch = new Search({ searchTerm, searchResult, searchDate: getCurrentDate() });
+  const { searchTerm, type, searchResult } = search;
+  const newsearch = new Search({ searchTerm, type, searchResult, searchDate: getCurrentDate() });
   await newsearch.save();
   return newsearch;
 };
@@ -14,9 +14,14 @@ export const getSearchesService = async () => {
   return searches;
 };
 
+export const getASearchService = async (searchTerm: string, type: string) => {
+  const search = await Search.findOne({ searchTerm, type });
+  return search;
+};
+
 export const updateSearchService = async (searchTerm: string, updatedData: ISearchWD) => {
-  const { searchResult } = updatedData;
-  const updatedSearch = await Search.findOneAndUpdate({ searchTerm }, { searchTerm, searchResult, searchDate: getCurrentDate() });
+  const { searchResult, type } = updatedData;
+  const updatedSearch = await Search.findOneAndUpdate({ searchTerm, type }, { searchTerm, type, searchResult, searchDate: getCurrentDate() });
   return updatedSearch;
 };
 

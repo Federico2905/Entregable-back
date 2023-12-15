@@ -1,5 +1,6 @@
 export interface ISearch {
   searchTerm: string;
+  type: string;
   searchResult: [];
   searchDate: string;
 }

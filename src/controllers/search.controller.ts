@@ -6,15 +6,23 @@ import {
   deleteAllSearchesService,
   updateSearchService,
   getSearchesService,
+  getASearchService,
 } from "../services/search.service";
 import { responseHandler } from "../handlers/response.handler";
 import { errorHandler } from "../handlers/error.handler";
 import { getCurrentDate } from "../utils";
 
 export const createSearch = async (req: Request, res: Response, next: NextFunction) => {
-  const body = req.body;
-  const newSearch = await createSearchService(body);
-  next(new responseHandler(201, newSearch, `The following searchterm and its results have been saved: ${newSearch.searchTerm}`));
+  try {
+    const body = req.body;
+    if (body.searchResult.length == 0) {
+      throw new errorHandler(400, "You cannot save a search without results");
+    }
+    const newSearch = await createSearchService(body);
+    next(new responseHandler(201, newSearch, `The following searchterm and its results have been saved: ${newSearch.searchTerm}`));
+  } catch (error) {
+    next(error);
+  }
 };
 
 export const getSearches = async (req: Request, res: Response, next: NextFunction) => {
@@ -29,6 +37,19 @@ export const getSearches = async (req: Request, res: Response, next: NextFunctio
   }
 };
 
+export const getASearch = async (req: Request, res: Response, next: NextFunction) => {
+  try {
+    const { searchTerm, type } = req.params;
+    const search = await getASearchService(searchTerm, type);
+    if (!search) {
+      throw new errorHandler(404, "The searchTerm that you are trying to get does not exist in the database");
+    }
+    next(new responseHandler(200, search));
+  } catch (error) {
+    next(error);
+  }
+};
+
 export const updateSearch = async (req: Request, res: Response, next: NextFunction) => {
   try {
     const { searchterm } = req.params;
@@ -37,12 +58,15 @@ export const updateSearch = async (req: Request, res: Response, next: NextFuncti
     if (!updatedSearch) {
       throw new errorHandler(404, "The searchterm that you are trying to update does not exist in the database");
     }
-    const { searchTerm, searchResult, searchDate } = updatedSearch;
-    const parsedUpdatedSearch = { searchTerm, searchResult, searchDate };
+    const { searchTerm, type, searchResult, searchDate } = updatedSearch;
+    const parsedUpdatedSearch = { searchTerm, type, searchResult, searchDate };
     next(
       new responseHandler(
         200,
-        { previusData: parsedUpdatedSearch, newData: { searchTerm: body.searchTerm, searchResult: body.searchResult, searchDate: getCurrentDate() } },
+        {
+          previusData: parsedUpdatedSearch,
+          newData: { searchTerm: body.searchTerm, type: body.type, searchResult: body.searchResult, searchDate: getCurrentDate() },
+        },
         `The content linked to the following searchterm has been updated: ${searchTerm}`
       )
     );
@@ -58,8 +82,8 @@ export const deleteSearch = async (req: Request, res: Response, next: NextFuncti
     if (!deletedSearch) {
       throw new errorHandler(404, "The searchterm that you are trying to delete does not have content saved");
     }
-    const { searchTerm, searchResult, searchDate } = deletedSearch;
-    const parsedDeletedSearch = { searchTerm, searchResult, searchDate };
+    const { searchTerm, type, searchResult, searchDate } = deletedSearch;
+    const parsedDeletedSearch = { searchTerm, type, searchResult, searchDate };
     next(
       new responseHandler(
         200,
