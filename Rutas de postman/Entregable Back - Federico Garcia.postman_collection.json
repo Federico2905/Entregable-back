@@ -12,16 +12,31 @@
 				"method": "GET",
 				"header": [],
 				"url": {
-					"raw": "http://localhost:5000/api/v1/searches",
-					"protocol": "http",
+					"raw": "{{Url}}/searches",
 					"host": [
-						"localhost"
+						"{{Url}}"
 					],
-					"port": "5000",
 					"path": [
-						"api",
-						"v1",
 						"searches"
+					]
+				}
+			},
+			"response": []
+		},
+		{
+			"name": "Get a specific searchTerm",
+			"request": {
+				"method": "GET",
+				"header": [],
+				"url": {
+					"raw": "{{Url}}/searches/users/Federico2905",
+					"host": [
+						"{{Url}}"
+					],
+					"path": [
+						"searches",
+						"users",
+						"Federico2905"
 					]
 				}
 			},
@@ -34,7 +49,7 @@
 				"header": [],
 				"body": {
 					"mode": "raw",
-					"raw": "{\r\n    \"searchTerm\": \"Federico2905\",\r\n    \"searchResult\": [],\r\n    \"searchDate\": \"13/11/2023\"\r\n}",
+					"raw": "{\r\n    \"searchTerm\": \"Federico2905\",\r\n    \"type\":\"repos\",\r\n    \"searchResult\": [\"aaaa\",\"aaaaaaa\"]\r\n}",
 					"options": {
 						"raw": {
 							"language": "json"
@@ -42,15 +57,11 @@
 					}
 				},
 				"url": {
-					"raw": "http://localhost:5000/api/v1/searches",
-					"protocol": "http",
+					"raw": "{{Url}}/searches",
 					"host": [
-						"localhost"
+						"{{Url}}"
 					],
-					"port": "5000",
 					"path": [
-						"api",
-						"v1",
 						"searches"
 					]
 				}
@@ -64,7 +75,7 @@
 				"header": [],
 				"body": {
 					"mode": "raw",
-					"raw": "{\r\n    \"searchTerm\": \"Federico2905\",\r\n    \"searchResult\": [\r\n        \"aaaa\",\r\n        \"aaaaaaa\"\r\n    ],\r\n    \"searchDate\": \"13/11/2023\"\r\n}",
+					"raw": "{\r\n    \"searchTerm\": \"Federico2905\",\r\n    \"type\": \"users\",\r\n    \"searchResult\": [\r\n        \"aaaa\",\r\n        \"aaaaaaa\",\r\n        \"bbbbbb\"\r\n    ]\r\n\r\n}",
 					"options": {
 						"raw": {
 							"language": "json"
@@ -72,15 +83,11 @@
 					}
 				},
 				"url": {
-					"raw": "http://localhost:5000/api/v1/searches/Federico2905",
-					"protocol": "http",
+					"raw": "{{Url}}/searches/Federico2905",
 					"host": [
-						"localhost"
+						"{{Url}}"
 					],
-					"port": "5000",
 					"path": [
-						"api",
-						"v1",
 						"searches",
 						"Federico2905"
 					]
@@ -94,15 +101,11 @@
 				"method": "DELETE",
 				"header": [],
 				"url": {
-					"raw": "http://localhost:5000/api/v1/allsearches",
-					"protocol": "http",
+					"raw": "{{Url}}/allsearches",
 					"host": [
-						"localhost"
+						"{{Url}}"
 					],
-					"port": "5000",
 					"path": [
-						"api",
-						"v1",
 						"allsearches"
 					]
 				}
@@ -115,21 +118,23 @@
 				"method": "DELETE",
 				"header": [],
 				"url": {
-					"raw": "http://localhost:5000/api/v1/searches/Federico2905",
-					"protocol": "http",
+					"raw": "{{Url}}/searches/Federico2905",
 					"host": [
-						"localhost"
+						"{{Url}}"
 					],
-					"port": "5000",
 					"path": [
-						"api",
-						"v1",
 						"searches",
 						"Federico2905"
 					]
 				}
 			},
 			"response": []
+		}
+	],
+	"variable": [
+		{
+			"key": "Url",
+			"value": "http://localhost:5000/api/v1/"
 		}
 	]
 }
