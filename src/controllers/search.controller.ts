@@ -82,13 +82,11 @@ export const deleteSearch = async (req: Request, res: Response, next: NextFuncti
     if (!deletedSearch) {
       throw new errorHandler(404, "The searchterm that you are trying to delete does not have content saved");
     }
-    const { searchTerm, type, searchResult, searchDate } = deletedSearch;
-    const parsedDeletedSearch = { searchTerm, type, searchResult, searchDate };
     next(
       new responseHandler(
         200,
-        parsedDeletedSearch,
-        `Succesfully deleted the following searchterm and its linked results: ${deletedSearch.searchTerm}`
+        `${deletedSearch} entries deleted`,
+        `Succesfully deleted the following searchterm and its linked results: ${searchterm}`
       )
     );
   } catch (error) {
@@ -98,5 +96,5 @@ export const deleteSearch = async (req: Request, res: Response, next: NextFuncti
 
 export const deleteAllSearches = async (req: Request, res: Response, next: NextFunction) => {
   const deletedSearchesCount = await deleteAllSearchesService();
-  next(new responseHandler(200, deletedSearchesCount, `${deletedSearchesCount} searches have been deleted from the database`));
+  next(new responseHandler(200, `${deletedSearchesCount} entries deleted`, `${deletedSearchesCount} searches have been deleted from the database`));
 };

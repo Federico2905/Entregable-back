@@ -26,8 +26,8 @@ export const updateSearchService = async (searchTerm: string, updatedData: ISear
 };
 
 export const deleteSearchService = async (searchTerm: string) => {
-  const deleteSearch = await Search.findOneAndDelete({ searchTerm });
-  return deleteSearch;
+  const deleteSearch = await Search.deleteMany({ searchTerm });
+  return deleteSearch.deletedCount;
 };
 
 export const deleteAllSearchesService = async () => {
